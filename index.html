@@ -52,6 +52,33 @@
         .publications {
             margin-bottom: 20px;
         }
+        .tabs {
+            overflow: hidden;
+            background-color: #f1f1f1;
+            border-bottom: 2px solid #004d99;
+            margin-bottom: 20px;
+        }
+        .tab-button {
+            background-color: #ddd;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            margin: 0;
+            display: inline-block;
+        }
+        .tab-button.active {
+            background-color: #004d99;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+        .tab-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -74,26 +101,33 @@
 
         <div class="section">
             <h2>Education</h2>
-            <p><strong>Doctoral Studies</strong> (Sep 2019 - Oct 2024)<br>
-            Department of Civil Engineering, KU Leuven, Belgium<br>
-            <em>Thesis:</em> Development of a CFD model to study ship-fluid mud interaction in shallow waters</p>
-            <ul>
-                <li>Developed a three-phase cohesive sediment transport CFD model using OpenFOAM.</li>
-                <li>Conducted rheology and consolidation experiments for fluid mud to obtain closures for the three-phase solver developed.</li>
-                <li>Validated the solver through experimental test cases involving a cylinder and a hydrofoil towed in a long flume with water-mud layers.</li>
-            </ul>
+            <div class="tabs">
+                <button class="tab-button active" onclick="openTab(event, 'phd')">PhD</button>
+                <button class="tab-button" onclick="openTab(event, 'masters')">Master's</button>
+            </div>
 
-            <p><strong>Master of Technology</strong> (Sep 2017 - May 2019)<br>
-            Ocean Engineering and Naval Architecture, Indian Institute of Technology (IIT), Kharagpur, India<br>
-            <em>Thesis:</em> Study of stern tunnel wedge shape on low draft shallow water vessels</p>
-            <ul>
-                <li>Stern tunnel wedge optimisation for an inland vessel using StarCCM+</li>
-                <li>Validation of CFD results using towing tank experiment</li>
-            </ul>
+            <div id="phd" class="tab-content active">
+                <h3>Doctoral Studies</h3>
+                <p><strong>Doctoral Studies</strong> (Sep 2019 - Oct 2024)<br>
+                Department of Civil Engineering, KU Leuven, Belgium<br>
+                <em>Thesis:</em> Development of a CFD model to study ship-fluid mud interaction in shallow waters</p>
+                <ul>
+                    <li>Developed a three-phase cohesive sediment transport CFD model using OpenFOAM.</li>
+                    <li>Conducted rheology and consolidation experiments for fluid mud to obtain closures for the three-phase solver developed.</li>
+                    <li>Validated the solver through experimental test cases involving a cylinder and a hydrofoil towed in a long flume with water-mud layers.</li>
+                </ul>
+            </div>
 
-            <p><strong>Bachelor of Engineering</strong> (Sep 2009 - May 2013)<br>
-            Naval Architecture and Marine Engineering, Andhra University, India<br>
-            <em>Thesis:</em> Design of 90t Bollard pull anchor handling tug supply vessel</p>
+            <div id="masters" class="tab-content">
+                <h3>Master of Technology</h3>
+                <p><strong>Master of Technology</strong> (Sep 2017 - May 2019)<br>
+                Ocean Engineering and Naval Architecture, Indian Institute of Technology (IIT), Kharagpur, India<br>
+                <em>Thesis:</em> Study of stern tunnel wedge shape on low draft shallow water vessels</p>
+                <ul>
+                    <li>Stern tunnel wedge optimisation for an inland vessel using StarCCM+</li>
+                    <li>Validation of CFD results using towing tank experiment</li>
+                </ul>
+            </div>
         </div>
 
         <div class="section">
@@ -160,5 +194,31 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Declare all variables
+            var i, tabcontent, tabbuttons;
+
+            // Get all elements with class="tab-content" and hide them
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tab-button" and remove the class "active"
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+            }
+
+            // Show the current tab and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Set the default tab to open
+        document.getElementsByClassName("tab-button")[0].click();
+    </script>
 </body>
 </html>
